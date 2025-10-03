@@ -66,8 +66,9 @@ Extract the QR code image and open it:
 
 ```powershell
 $data = $response.qrCodeUrl -replace '^data:image\/png;base64,',''
-[System.IO.File]::WriteAllBytes("qr.png", [System.Convert]::FromBase64String($data))
-Start-Process "qr.png"
+$path = Join-Path (Get-Location).Path 'qr.png'
+[System.IO.File]::WriteAllBytes($path, [System.Convert]::FromBase64String($data))
+Invoke-Item $path
 ```
 
 This creates and opens a file called `qr.png` in your current folder.
